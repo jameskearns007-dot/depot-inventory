@@ -175,6 +175,12 @@
     transition: border-color 0.2s, transform 0.15s;
     cursor: pointer;
     position: relative;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
   }
   .part-card:active { transform: scale(0.985); }
   .part-card.has-photo { border-color: var(--done); }
@@ -616,6 +622,7 @@
 <div class="header">
   <div class="header-top">
     <div class="facility-badge">⬡ Parts Depot</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-top:2px;">v2.2</div>
     <div style="display:flex;align-items:center;gap:10px;">
       <button id="loadBtn" onclick="triggerCSVLoad()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:6px;cursor:pointer;white-space:nowrap;">📂 Load Parts CSV</button>
       <div class="progress-wrap">
@@ -1031,8 +1038,8 @@ function renderList(filtered) {
   }
 
   list.innerHTML = filtered.map(p => `
-    <div class="part-card ${p.photo ? 'has-photo' : ''}" data-part-id="${p.id}" style="cursor:pointer;">
-      <div class="part-card-inner" style="pointer-events:none;">
+    <button class="part-card ${p.photo ? 'has-photo' : ''}" data-part-id="${p.id}">
+      <div class="part-card-inner">
         <div class="photo-thumb">
           ${p.photo
             ? `<img src="${p.photo}" alt=""><div class="done-tick">✓</div>`
@@ -1049,7 +1056,7 @@ function renderList(filtered) {
         </div>
         <div class="part-value">$${p.totalVal.toLocaleString('en-CA', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
       </div>
-    </div>
+    </button>
   `).join('');
 }
 

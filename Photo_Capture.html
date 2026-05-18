@@ -1031,8 +1031,8 @@ function renderList(filtered) {
   }
 
   list.innerHTML = filtered.map(p => `
-    <div class="part-card ${p.photo ? 'has-photo' : ''}" onclick="openModal(${p.id})">
-      <div class="part-card-inner">
+    <div class="part-card ${p.photo ? 'has-photo' : ''}" data-part-id="${p.id}" style="cursor:pointer;">
+      <div class="part-card-inner" style="pointer-events:none;">
         <div class="photo-thumb">
           ${p.photo
             ? `<img src="${p.photo}" alt=""><div class="done-tick">✓</div>`
@@ -1242,6 +1242,16 @@ function saveLocation() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+// Event delegation for part cards — fixes Safari mobile tap issue
+document.getElementById('partsList').addEventListener('click', function(e) {
+  const card = e.target.closest('[data-part-id]');
+  if (card) openModal(parseInt(card.dataset.partId));
+});
+document.getElementById('partsList').addEventListener('touchend', function(e) {
+  const card = e.target.closest('[data-part-id]');
+  if (card) { e.preventDefault(); openModal(parseInt(card.dataset.partId)); }
+});
+
 buildParts([]);
 applyFilters();
 </script>

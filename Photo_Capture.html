@@ -622,7 +622,7 @@
 <div class="header">
   <div class="header-top">
     <div class="facility-badge">⬡ Parts Depot</div>
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-top:2px;">v2.3</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-top:2px;">v2.5</div>
     <div style="display:flex;align-items:center;gap:10px;">
       <button id="loadBtn" onclick="triggerCSVLoad()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:6px;cursor:pointer;white-space:nowrap;">📂 Load Parts CSV</button>
       <div class="progress-wrap">
@@ -1140,11 +1140,11 @@ function openModal(id) {
   const ar = document.getElementById('assignRack');
   const as_ = document.getElementById('assignShelf');
   az.value = p.zone || '';
-  if (p.zone) {
-    populateSelect(ar, RACKS, 'Rack');
+  if (p.zone && LOCATION_MAP[p.zone]) {
+    populateSelect(ar, LOCATION_MAP[p.zone], 'Rack');
     ar.value = p.rack || '';
     if (p.rack) {
-      populateSelect(as_, SHELVES, 'Shelf');
+      populateSelect(as_, ROWS, 'Row');
       as_.value = p.shelf || '';
     }
   }
